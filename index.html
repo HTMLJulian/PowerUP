@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muskelaufbau App</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="manifest" href="manifest.json">
+    <script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js")
+            .then(() => console.log("Service Worker registriert"))
+            .catch(err => console.error("Fehler beim Registrieren:", err));
+    }
+    </script>
+
+</head>
+<body>
+
+    <div class="container" id="setup-screen">
+        <h1>Willkommen!</h1>
+        <p>Bitte gib deine Daten ein, damit wir dein perfektes Workout erstellen können.</p>
+
+        <input type="number" id="user-weight" placeholder="Gewicht in kg">
+        <input type="number" id="user-age" placeholder="Alter in Jahren">
+        <input type="number" id="user-time" placeholder="Minuten pro Tag">
+
+        <button onclick="generateWorkout()">Workout erstellen</button>
+    </div>
+
+    <div class="container hidden" id="workout-screen">
+        <h1>Muskelaufbau App</h1>
+        <p id="user-info"></p>
+
+        <h2>Dein automatisches Workout</h2>
+        <select id="workout-dropdown" onchange="showExerciseDetails()">
+            <option value="">-- Bitte ein Workout auswählen --</option>
+        </select>
+
+        <div id="exercise-details" class="hidden">
+            <h3 id="exercise-name"></h3>
+            <p id="exercise-description"></p>
+            <button onclick="startTimer()">Timer starten</button>
+        </div>
+
+        <div id="timer" class="hidden">
+            <h2 id="timer-task-name"></h2>
+            <p id="countdown">0s</p>
+            <button onclick="stopTimer()">Stopp</button>
+        </div>
+
+        <button onclick="resetApp()">Neues Workout erstellen</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
